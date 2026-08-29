@@ -1,0 +1,41 @@
+CORREÇÕES APLICADAS NESTE ZIP
+=============================
+
+O erro "Please provide a valid cache path" acontecia porque faltavam
+as pastas storage/framework/cache, storage/framework/sessions e
+storage/framework/views. Isso já foi corrigido aqui:
+
+- Criadas: storage/framework/cache/, storage/framework/cache/data/,
+  storage/framework/sessions/, storage/framework/views/,
+  storage/framework/testing/ (com os .gitignore corretos)
+- Permissões ajustadas (775) em storage/ e bootstrap/cache/
+- Criado o link public/storage -> storage/app/public
+
+O QUE AINDA FALTA FAZER NA SUA MÁQUINA
+=======================================
+Meu ambiente aqui não tem PHP, MySQL nem internet, então não consegui
+rodar os comandos abaixo. Faça isso depois de extrair o zip, dentro
+da pasta do projeto:
+
+1) Limpar caches do Laravel (garante que tudo pegue a config nova):
+   php artisan config:clear
+   php artisan cache:clear
+   php artisan view:clear
+   php artisan route:clear
+
+2) Criar o banco de dados (o .env está configurado para o banco "ti"):
+   mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS ti;"
+
+3) Rodar as migrations:
+   php artisan migrate
+
+4) Instalar dependências do frontend e compilar os assets
+   (a pasta node_modules não vem no zip):
+   npm install
+   npm run build
+
+5) Subir o servidor:
+   php artisan serve
+
+Se aparecer algum novo erro depois disso, me manda a mensagem completa
+que eu te ajudo a resolver.

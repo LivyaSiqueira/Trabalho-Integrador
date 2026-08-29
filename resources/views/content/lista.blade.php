@@ -1,0 +1,8 @@
+<x-app-layout>
+<x-slot name="header"><div class="d-flex justify-content-between align-items-center"><div><h2 class="sf-title">Conteúdos</h2><p class="sf-subtitle mb-0">Gerencie o que você precisa estudar.</p></div><a href="{{ route('content.create') }}" class="sf-btn">+ Novo conteúdo</a></div></x-slot>
+<div class="sf-card">
+<form method="GET" action="{{ route('content.search') }}" class="form-row mb-4"><div class="col-md-10 mb-2"><input name="filtro" value="{{ $filtro ?? '' }}" class="form-control" placeholder="Pesquisar conteúdo..."></div><div class="col-md-2 mb-2"><button class="btn sf-btn btn-block">Pesquisar</button></div></form>
+<div class="table-responsive"><table class="table sf-table"><thead><tr><th>Título</th><th>Matéria</th><th>Descrição</th><th>Status</th><th>Ações</th></tr></thead><tbody>
+@forelse($contents as $content)<tr><td><strong>{{ $content->title }}</strong></td><td>{{ $content->subject->name }}</td><td>{{ $content->description ?: '—' }}</td><td>@if($content->status)<span class="badge badge-success">Concluído</span>@else<span class="badge badge-secondary">Pendente</span>@endif</td><td class="text-nowrap"><a href="{{ route('content.view',$content->id) }}" class="btn btn-sm sf-btn-outline">Editar</a> <a href="{{ route('content.destroy',$content->id) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Excluir este conteúdo?')">Excluir</a></td></tr>
+@empty<tr><td colspan="5" class="text-center py-4">Nenhum conteúdo cadastrado.</td></tr>@endforelse</tbody></table></div></div>
+</x-app-layout>
